@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Docker: the Compose service now runs with `init: true`, so PID 1 reaps the Chromium child processes that Crawl4AI/Playwright leave behind. Without an init process they accumulated as `<defunct>` zombies in a long-running server (unclecode/crawl4ai#1666).
+
 ## [0.32.0] - 2026-10-15
 
 **Upgrade note:** existing SearXNG-only setups must set `SEARXNG_URL` explicitly; there is no `http://localhost:8888` default any more. `SEARXNG_URL` must not embed credentials (`https://user:pw@host` is rejected); use `SEARXNG_USERNAME`/`SEARXNG_PASSWORD` instead.
