@@ -2,6 +2,9 @@ name: searxncrawl
 
 services:
   searxncrawl:
+    # Reap the Chromium child processes that Crawl4AI/Playwright leave behind.
+    # Without an init process they stay as <defunct> zombies under PID 1.
+    init: true
     build:
       context: .
       dockerfile: Dockerfile
