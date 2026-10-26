@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Raise the minimum Crawl4AI version to 0.9.5, its current security release. It drops Chromium's `--ignore-certificate-errors` launch flag, so TLS verification now follows `ignore_https_errors`, and it stops `css_selector` and JavaScript `wait_for` values from running as page script.
+
 ### Fixed
 - Docker: the Compose service now runs with `init: true`, so PID 1 reaps the Chromium child processes that Crawl4AI/Playwright leave behind. Without an init process they accumulated as `<defunct>` zombies in a long-running server (unclecode/crawl4ai#1666).
 
