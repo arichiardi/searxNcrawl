@@ -108,6 +108,8 @@ code --add-mcp '{"name":"searxncrawl","command":"uvx","args":["searxncrawl"],"en
 
 The first crawl downloads Playwright's Chromium once (about 550 MB). For Docker, HTTP transport and other setups see [Installation](docs/usage/installation.md) and [MCP server](docs/usage/mcp-server.md).
 
+If you run the container yourself (plain `docker run`, a Podman quadlet, Kubernetes) start it with an init process: `--init` on the command line, or `RunInit=true` in a Podman quadlet. Without an init process the Chromium subprocesses that Crawl4AI leaves behind accumulate as `<defunct>` zombies for as long as the container runs. See [Installation](docs/usage/installation.md#init-process).
+
 ### Ask your agent
 
 ```text

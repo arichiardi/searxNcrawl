@@ -31,6 +31,16 @@ docker compose up --build
 
 The MCP server is available at `http://localhost:9555/mcp`.
 
+### Init process
+
+The Compose service runs with `init: true`, so PID 1 reaps the Chromium child processes that Crawl4AI leaves behind. Enable an init process in any other container setup as well:
+
+- `docker run --init ...`
+- Podman quadlet: `RunInit=true` in the `[Container]` section, then `systemctl --user daemon-reload && systemctl --user restart <unit>`
+- Kubernetes: run the container under a small init such as `tini`, since the pod does not add one
+
+Without an init process, PID 1 is the Python MCP server, which never calls `wait()`. Each crawl leaves about two Chromium processes as `<defunct>` zombies, and they accumulate while the container runs. See [unclecode/crawl4ai#1666](https://github.com/unclecode/crawl4ai/issues/1666).
+
 ## pip
 
 ```bash
